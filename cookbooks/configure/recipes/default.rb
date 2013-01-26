@@ -102,7 +102,7 @@ end
 
 git "/home/vagrant/blog" do
   repository "git@github.com:Version2beta/version2beta.git"
-  revision "flask"
+  revision "master"
   user "vagrant"
   group "vagrant"
   action :sync
