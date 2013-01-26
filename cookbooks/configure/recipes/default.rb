@@ -25,6 +25,9 @@ end
 python_pip "pygments" do
   action :install
 end
+python_pip "PyYAML" do
+  action :install
+end
 
 directory "/home/vagrant/blog/" do
   owner "vagrant"
