@@ -25,9 +25,6 @@ end
 python_pip "pygments" do
   action :install
 end
-python_pip "python-dateutil" do
-  action :install
-end
 
 directory "/home/vagrant/blog/" do
   owner "vagrant"
@@ -102,7 +99,7 @@ end
 
 git "/home/vagrant/blog" do
   repository "git@github.com:Version2beta/version2beta.git"
-  revision "master"
+  revision "flask"
   user "vagrant"
   group "vagrant"
   action :sync
