@@ -127,6 +127,10 @@ template "/home/vagrant/.s3cfg" do
   mode  00400
   owner "vagrant"
   group "vagrant"
+  variables({
+    :access_key => access_key,
+    :secret_key => secret_key
+  })
 end
 
 cookbook_file "/home/vagrant/.gitconfig" do
