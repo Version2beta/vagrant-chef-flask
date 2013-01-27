@@ -125,8 +125,8 @@ end
 template "/home/vagrant/.s3cfg" do
   source "s3cfg.erb"
   mode  00400
-  owner vagrant
-  group vagrant
+  owner "vagrant"
+  group "vagrant"
 end
 
 cookbook_file "/home/vagrant/.gitconfig" do
