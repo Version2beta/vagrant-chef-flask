@@ -30,6 +30,10 @@ python_pip "PyYAML" do
 end
 python_pip "boto" do
   action :install
+end
+package "s3cmd" do
+  action: install
+end
 
 directory "/home/vagrant/blog/" do
   owner "vagrant"
