@@ -28,6 +28,8 @@ end
 python_pip "PyYAML" do
   action :install
 end
+python_pip "boto" do
+  action :install
 
 directory "/home/vagrant/blog/" do
   owner "vagrant"
@@ -35,6 +37,12 @@ directory "/home/vagrant/blog/" do
 end
 
 directory "/home/vagrant/.ssh" do
+  owner "vagrant"
+  mode 00700
+  recursive true
+end
+
+directory "/home/vagrant/.aws" do
   owner "vagrant"
   mode 00700
   recursive true
@@ -67,10 +75,13 @@ cookbook_file "/home/vagrant/.vimrc" do
   mode 00755
 end
 
-bag = data_bag_item("git", "ssh_keys")
-ssh_public = bag["_default"]["public_key"]
-ssh_private = bag["_default"]["private_key"]
-known_hosts = bag["_default"]["known_hosts"]
+gitbag = data_bag_item("git", "ssh_keys")
+ssh_public = gitbag["_default"]["public_key"]
+ssh_private = gitbag["_default"]["private_key"]
+known_hosts = gitbag["_default"]["known_hosts"]
+awsbag = data_bag_item("aws", "aws_keys")
+access_key = awsbag["_default"]["access_key"]
+secret_key = awsbag["_default"]["secret_key"]
 
 file "/home/vagrant/.ssh/id_rsa.pub" do
   content ssh_public
@@ -88,6 +99,20 @@ end
 
 file "/home/vagrant/.ssh/known_hosts" do
   content known_hosts
+  owner "vagrant"
+  group "vagrant"
+  mode 00600
+end
+
+file "/home/vagrant/.aws/access_key" do
+  content access_key
+  owner "vagrant"
+  group "vagrant"
+  mode 00600
+end
+
+file "/home/vagrant/.aws/secret_key" do
+  content secret_key
   owner "vagrant"
   group "vagrant"
   mode 00600
