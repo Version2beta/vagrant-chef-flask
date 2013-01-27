@@ -122,6 +122,13 @@ file "/home/vagrant/.aws/secret_key" do
   mode 00600
 end
 
+template "/home/vagrant/.s3cfg" do
+  source "s3cfg.erb"
+  mode  00400
+  owner vagrant
+  group vagrant
+end
+
 cookbook_file "/home/vagrant/.gitconfig" do
   source "gitconfig"
   owner "vagrant"
