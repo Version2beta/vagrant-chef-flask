@@ -7,12 +7,7 @@
 
 # execute 'DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade'
 
-include_recipe "nginx_conf"
-package "nginx"
-package "mysql"
 include_recipe "database"
-package "wordpress"
-package "vim"
 
 directory "/home/vagrant/blog/" do
   owner "vagrant"
@@ -87,9 +82,5 @@ end
 
 link "/var/www/blog" do
   to "/home/vagrant/blog"
-end
-
-nginx_conf_file "vagrant-chef-wordpress" do
-  root "/var/www/blog"
 end
 
