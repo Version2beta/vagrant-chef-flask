@@ -1,2 +1,2 @@
 .vagrant
-databags/git/ssh_keys.json
+data_bags/git/ssh_keys.json
