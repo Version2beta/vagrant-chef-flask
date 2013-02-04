@@ -1,4 +1,4 @@
-vagrant-chef-wordpress
-======================
+vagrant-chef-flask
+==================
 
-A shortcut to a Wordpress dev environment on a Vagrant VirtualBox provisioned with Chef.
+A shortcut to a Flask development environment with my blog in it.
