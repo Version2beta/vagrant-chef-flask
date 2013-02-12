@@ -4,7 +4,7 @@
 Vagrant::Config.run do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.forward_port 8000, 8000
+  config.vm.forward_port 8000, 8000, { :auto => true }
   config.vm.share_folder "v-data", "/home/vagrant/host_shared", "./shared"
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
