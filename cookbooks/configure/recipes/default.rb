@@ -7,54 +7,39 @@
 
 # execute 'DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade'
 
-package "python"
+include_recipe "python"
+include_recipe "vim"
 package "git"
-include_recipe "nginx_conf"
-python_pip "ipython" do
-  action :install
-end
-python_pip "flask" do
-  action :install
-end
-python_pip "Frozen-Flask" do
-  action :install
-end
-python_pip "markdown2" do
-  action :install
-end
-python_pip "pygments" do
-  action :install
-end
-python_pip "PyYAML" do
-  action :install
-end
-python_pip "boto" do
-  action :install
-end
-package "s3cmd" do
-  action :install
+package "s3cmd"
+
+pips = [
+  "ipython",
+  "flask",
+  "Frozen-Flask",
+  "markdown2",
+  "pygments",
+  "PyYAML",
+  "boto"
+]
+pips.each do |p|
+  python_pip p do
+    action :install
+  end
 end
 
-directory "/home/vagrant/blog/" do
-  owner "vagrant"
-  group "vagrant"
-end
-
-directory "/home/vagrant/.ssh" do
-  owner "vagrant"
-  mode 00700
-  recursive true
-end
-
-directory "/home/vagrant/.aws" do
-  owner "vagrant"
-  mode 00700
-  recursive true
-end
-
-directory "/home/vagrant/bin" do
-  owner "vagrant"
-  group "vagrant"
+directories = [
+  "/home/vagrant/blog/",
+  "/home/vagrant/.ssh",
+  "/home/vagrant/.aws",
+  "/home/vagrant/bin" 
+]
+directories.each do |d|
+  directory d do
+    owner "vagrant"
+    group "vagrant"
+    mode 00755
+    recursive true
+  end
 end
 
 remote_file "/home/vagrant/bin/vcprompt" do
@@ -72,6 +57,7 @@ cookbook_file "/home/vagrant/.profile" do
   mode 00755
 end
 
+include_recipe "vim"
 cookbook_file "/home/vagrant/.vimrc" do
   source "vimrc"
   owner "vagrant"
@@ -142,23 +128,8 @@ end
 
 git "/home/vagrant/blog" do
   repository "git@github.com:Version2beta/version2beta.git"
-  revision "master"
+  reference "master"
   user "vagrant"
   group "vagrant"
-  action :sync
+  action :checkout
 end
-
-directory "/var/www/" do
-  owner "www-data"
-  group "www-data"
-  owner 00777
-end
-
-link "/var/www/blog" do
-  to "/home/vagrant/blog"
-end
-
-nginx_conf_file "dev.version2beta.com" do
-  root "/var/www/blog"
-end
-
