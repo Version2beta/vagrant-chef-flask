@@ -131,5 +131,5 @@ git "/home/vagrant/blog" do
   reference "master"
   user "vagrant"
   group "vagrant"
-  action :checkout
+  action :sync
 end
