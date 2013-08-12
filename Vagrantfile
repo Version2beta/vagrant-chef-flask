@@ -1,11 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+Vagrant::configure("2") do |config|
   config.vm.box = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.forward_port 8000, 8000, { :auto => true }
-  config.vm.share_folder "v-data", "/home/vagrant/host_shared", "./shared"
+  config.vm.network :forwarded_port, guest: 8000, host: 8000, auto_correct: true
+  config.vm.network :forwarded_port, guest: 22, host: 2022, auto_correct: true
+  config.vm.synced_folder"./shared", "/home/vagrant/host_shared"
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
     chef.data_bags_path = "data_bags"
