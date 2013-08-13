@@ -11,6 +11,8 @@ include_recipe "python"
 include_recipe "vim"
 package "git"
 package "s3cmd"
+package "pngcrush"
+package "imagemagick"
 
 pips = [
   "ipython",
@@ -31,7 +33,7 @@ directories = [
   "/home/vagrant/blog/",
   "/home/vagrant/.ssh",
   "/home/vagrant/.aws",
-  "/home/vagrant/bin" 
+  "/home/vagrant/bin"
 ]
 directories.each do |d|
   directory d do
